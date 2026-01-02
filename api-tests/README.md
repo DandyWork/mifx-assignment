@@ -17,7 +17,7 @@ The following test types are covered:
 
 1. Import the Postman collection from:
 
-2. (Optional) Import the environment file if provided.
+2. Import the environment file 
 
 3. Open any request and set:
 - Authorization Type: **Basic Auth**
