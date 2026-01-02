@@ -17,3 +17,13 @@ It demonstrates end-to-end QA capabilities including SDLC understanding, manual 
 - Database: SQL
 - Documentation: Google Docs / Google Sheets
 - Version Control: GitHub
+
+## How to Use
+1. Clone the repository
+2. Follow setup instructions in each module
+3. Run API or UI tests based on the selected framework
+4. Review test results and recorded automation execution
+
+## Notes
+- This repository is created for technical assessment purposes.
+- Automation execution recordings are provided separately as per submission requirements.
