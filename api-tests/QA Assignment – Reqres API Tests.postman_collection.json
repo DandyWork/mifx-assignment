@@ -302,8 +302,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"POST method not allowed\", function () {\r",
-									"    pm.expect(pm.response.code).to.be.oneOf([404, 405]);\r",
+									"pm.test(\"POST request returns 201 Created (mock behavior)\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
 									"});\r",
 									""
 								],
