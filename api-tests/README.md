@@ -40,7 +40,7 @@ The following test types are covered:
 
 API tests were successfully executed using Postman Runner.
 
-![API Test Run Result](evidence/api-run-success.png)
+[API Test Run Result](evidence/api-run-success.png)
 
 ---
 
