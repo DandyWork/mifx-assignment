@@ -36,5 +36,15 @@ The following test types are covered:
 
 ---
 
-## Repository Structure
+## Test Execution Evidence
+
+API tests were successfully executed using Postman Runner.
+
+![API Test Run Result](evidence/api-run-success.png)
+
+---
+
+## Author
+**Dandy Purwanto**
+
 
