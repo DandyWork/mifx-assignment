@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "e790dbf9-faa0-4bdc-9dc4-dc7e46b4a53f",
+		"name": "QA Assignment – Reqres API Tests",
+		"description": "StartFragmentThis Postman collection contains automated API tests for the Reqres endpoint used in the Senior QA Specialist assignment.\n\nIt covers functional, negative, schema, and performance validations.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46210477",
+		"_collection_link": "https://dandy-3415141.postman.co/workspace/5dc9a9bc-965c-4798-8731-3f791998f797/collection/46210477-e790dbf9-faa0-4bdc-9dc4-dc7e46b4a53f?action=share&source=collection_link&creator=46210477"
+	},
+	"item": [
+		{
+			"name": "Functional Test",
+			"item": [
+				{
+					"name": "GET – Users List (Page 2)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Status code validation\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Response format validation\r",
+									"pm.test(\"Response is JSON\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"// Mandatory fields validation\r",
+									"pm.test(\"Response has mandatory fields\", function () {\r",
+									"    const json = pm.response.json();\r",
+									"    pm.expect(json).to.have.property(\"page\");\r",
+									"    pm.expect(json).to.have.property(\"per_page\");\r",
+									"    pm.expect(json).to.have.property(\"total\");\r",
+									"    pm.expect(json).to.have.property(\"total_pages\");\r",
+									"    pm.expect(json).to.have.property(\"data\");\r",
+									"});\r",
+									"\r",
+									"// Data array validation\r",
+									"pm.test(\"User data array is not empty\", function () {\r",
+									"    const data = pm.response.json().data;\r",
+									"    pm.expect(data.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"// User object schema validation\r",
+									"pm.test(\"User object has required fields\", function () {\r",
+									"    const user = pm.response.json().data[0];\r",
+									"    pm.expect(user).to.have.property(\"id\");\r",
+									"    pm.expect(user).to.have.property(\"email\");\r",
+									"    pm.expect(user).to.have.property(\"first_name\");\r",
+									"    pm.expect(user).to.have.property(\"last_name\");\r",
+									"    pm.expect(user).to.have.property(\"avatar\");\r",
+									"});\r",
+									"\r",
+									"// Email format validation\r",
+									"pm.test(\"Email format is valid\", function () {\r",
+									"    const email = pm.response.json().data[0].email;\r",
+									"    pm.expect(email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);\r",
+									"});\r",
+									"\r",
+									"// Performance validation\r",
+									"pm.test(\"Response time is below 2000ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}{{users_endpoint}}?page=2",
+							"host": [
+								"{{base_url}}{{users_endpoint}}"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Negative Test",
+			"item": [
+				{
+					"name": "GET – Users List (Invalid Page String)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"API handles invalid page parameter\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 400]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{users_endpoint}}?page=abc\n",
+							"host": [
+								"{{base_url}}{{users_endpoint}}"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "abc\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET – Users List (Page Out of Range)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Empty data returned for out-of-range page\", function () {\r",
+									"    const data = pm.response.json().data;\r",
+									"    pm.expect(data).to.be.an(\"array\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{users_endpoint}}?page=999\n\n",
+							"host": [
+								"{{base_url}}{{users_endpoint}}"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "999\n\n"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST – Users List (Invalid Method)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"POST method not allowed\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([404, 405]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "test",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "test",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}{{users_endpoint}}\n\n",
+							"host": [
+								"{{base_url}}{{users_endpoint}}\n\n"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
