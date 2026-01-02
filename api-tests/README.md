@@ -38,9 +38,7 @@ The following test types are covered:
 
 ## Test Execution Evidence
 
-API tests were successfully executed using Postman Runner.
-
-[API Test Run Result](evidence/)
+API tests were successfully executed using Postman Runner can be checked at Evidence
 
 ---
 
