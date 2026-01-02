@@ -1,0 +1,47 @@
+// Status code validation
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+// Response format validation
+pm.test("Response is JSON", function () {
+    pm.response.to.be.json;
+});
+
+// Mandatory fields validation
+pm.test("Response has mandatory fields", function () {
+    const json = pm.response.json();
+    pm.expect(json).to.have.property("page");
+    pm.expect(json).to.have.property("per_page");
+    pm.expect(json).to.have.property("total");
+    pm.expect(json).to.have.property("total_pages");
+    pm.expect(json).to.have.property("data");
+});
+
+// Data array validation
+pm.test("User data array is not empty", function () {
+    const data = pm.response.json().data;
+    pm.expect(data.length).to.be.above(0);
+});
+
+// User object schema validation
+pm.test("User object has required fields", function () {
+    const user = pm.response.json().data[0];
+    pm.expect(user).to.have.property("id");
+    pm.expect(user).to.have.property("email");
+    pm.expect(user).to.have.property("first_name");
+    pm.expect(user).to.have.property("last_name");
+    pm.expect(user).to.have.property("avatar");
+});
+
+// Email format validation
+pm.test("Email format is valid", function () {
+    const email = pm.response.json().data[0].email;
+    pm.expect(email).to.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+});
+
+// Performance validation
+pm.test("Response time is below 2000ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(2000);
+});
+
