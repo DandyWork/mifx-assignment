@@ -9,3 +9,6 @@ Direction is derived based on net volume
 BUY volumes are treated as positive values
 
 SELL volumes are treated as negative values
+
+## Author
+**Dandy Purwanto**
